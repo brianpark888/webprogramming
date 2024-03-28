@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Calculator Program</title>
+        <style>
+            h1{
+                text-align: center;
+                font-weight: 30px;
+            }
+            p{
+                text-align: center;
+                font-weight: 19px;
+                font-style: italic;
+            }
+            .buttons {
+                text-align: center;
+                margin-top: 20px;
+            }
+            button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+            button:hover {
+                background-color: #607261;
+            }
+            #action-status{
+                font-style: normal;
+            }
+            #input{
+                font-style: normal;
+            }
+        </style>
+        <script>
+            window.onload = function () {
+                const buttonDisplay = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "+", "-", "x", "%"];
+                let hasOperator = false; // Track if an operator has been pressed
+
+                buttonDisplay.forEach(function (i) {
+                    const button = document.getElementById(i);
+
+                    button.addEventListener("click", function () {
+                        const inputHidden = document.getElementById("input-hidden");
+                        
+                        // Check if an operator is pressed
+                        if (["+","-","x","%"].includes(i)) {
+                            if (hasOperator) {
+                                // Evaluate and log if second operator is pressed
+                                evaluateAndLog(inputHidden);
+                                inputHidden.innerHTML = ""; // Reset input for new operation
+                            }
+                            hasOperator = true; // Mark that an operator is now included
+                        }
+                        
+                        inputHidden.innerHTML += String(i);
+                    });
+                });
+
+                const generateResultButton = document.getElementById("=");
+
+                generateResultButton.addEventListener("click", function () {
+                    const inputHidden = document.getElementById("input-hidden");
+                    evaluateAndLog(inputHidden); // Evaluate and log on "=" press
+                    inputHidden.innerHTML = ""; // Clear input after evaluation
+                    hasOperator = false; // Reset operator flag
+                });
+            };
+
+            function evaluateAndLog(inputElement) {
+            // Convert the operation to a JavaScript-compatible format and evaluate
+            let operation = inputElement.innerHTML.replace("x", "*").replace("%", "/100");
+            try {
+                let result = new Function('return ' + operation)();
+                inputElement.innerHTML = result; // Update the input display to show the result for further operations
+                document.getElementById("action-status").innerHTML = "Result: " + result; // Update the result display
+            } catch (e) {
+                console.error("Error evaluating operation: ", e);
+                inputElement.innerHTML = "Error"; // Show error in input
+                document.getElementById("action-status").innerHTML = "Result: Error"; // Also display the error in the result section
+            }
+        }
+
+        </script>
+    </head>
+    <body>
+    <h1>Calculator Program</h1>
+    <p>This is my calculator program</p>
+    <div class= "buttons">
+        <button id="7">7</button>
+        <button id="8">8</button>
+        <button id="9">9</button>
+        <button id="%">%</button>
+        <br>
+        <button id="4">4</button>
+        <button id="5">5</button>
+        <button id="6">6</button>
+        <button id="x">x</button>
+        <br>
+        <button id="1">1</button>
+        <button id="2">2</button>
+        <button id="3">3</button>
+        <button id="-">-</button>
+        <br>
+        <button id=".">.</button>
+        <button id="0">0</button>
+        <button id="+">+</button>
+        <button id="=">=</button>
+    </div>
+    <div class="input-class" style="display: flex; justify-content: center;">
+        <p id="input" style="font-weight:bold; display: inline-block;">Input: </p>
+        <p id="input-hidden" style="display: inline-block;"> </p>
+    </div>    
+    <p id= "action-status" style="font-weight:bold;">Result: </p>   
+
+    </body>
+</html>

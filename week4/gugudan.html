@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gugudan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #action-status {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .action-message {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+    </style>
+    <script>
+        window.onload = function () {
+            for(let i=1; i<=10;i++){
+                const button = document.getElementById("x" + i);
+
+                
+                
+                button.addEventListener("click", function () {
+                
+                const actionStatus = document.getElementById("action-status");
+                let clickStatus = document.createElement("div");
+                if (actionStatus.childElementCount >=1) {
+                    // Remove the first child element of clickStatus
+                    actionStatus.removeChild(actionStatus.children[0]);
+                }
+
+                clickStatus.innerHTML = "9 x " + String(i) + " = " + String(9 * i);
+                actionStatus.appendChild(clickStatus);
+
+                
+            });
+        
+        }
+    }
+    </script>
+  </head>
+  <body>
+    <h1>Gugudan</h1>
+
+    <p id="my-paragraph" style= "text-align: center; font-weight: bold; font-size: 25px;">9 Times Table Program.</p>
+    <p id="action-status" style="font-size: 19px;font-weight:bold;">Result:<p>
+    <div class = "buttons">
+        <button id="x1">x1</button>
+        <button id="x2">x2</button>
+        <br>
+        <button id="x3">x3</button>
+        <button id="x4">x4</button>
+        <br>
+        <button id="x5">x5</button>
+        <button id="x6">x6</button>
+        <br>
+        <button id="x7">x7</button>
+        <button id="x8">x8</button>
+        <br>
+        <button id="x9">x9</button>
+        <button id="x10">x10</button>
+    </div>
+  </body>
+</html>
